@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학교생활로 보는 나의 MBTI 테스트</title>
+    <style>
+        /* 파스텔 하늘 & 초록 톤 테마 변수 */
+        :root {
+            --bg-color: #f0f7f4;
+            --card-bg: #ffffff;
+            --primary: #a8dadc;
+            --primary-hover: #457b9d;
+            --secondary: #d8f3dc;
+            --secondary-hover: #b7e4c7;
+            --text-color: #2d3748;
+            --accent: #1d3557;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(168, 222, 220, 0.3);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            word-break: keep-all;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            word-break: keep-all;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            background-color: var(--bg-color);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+            word-break: keep-all;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .start-btn {
+            background-color: var(--secondary);
+            border: 2px solid var(--secondary-hover);
+            padding: 18px;
+            font-size: 1.2rem;
+        }
+        .start-btn:hover {
+            background-color: var(--secondary-hover);
+            color: var(--text-color);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* 화면 전환용 클래스 */
+        .hidden {
+            display: none;
+        }
+
+        /* 결과 창 스타일 */
+        .result-mbti {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-hover);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .jobs-box {
+            background-color: var(--secondary);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .jobs-box h3 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .jobs-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .jobs-list li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .jobs-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="start-screen">
+            <h1>🏫 학교생활로 알아보는<br>나의 MBTI 테스트</h1>
+            <p>교문을 나설 때부터 교실 안에서의 내 모습까지!<br>진짜 내 성격과 찰떡인 미래 직업은 무엇일까요?</p>
+            <button class="btn start-btn" onclick="startTest()">테스트 시작하기</button>
+        </div>
+
+        <div id="question-screen" class="hidden">
+            <div class="progress-bar">
+                <div id="progress" class="progress"></div>
+            </div>
+            <h2 id="question-number" style="font-size: 1rem; color: #718096; margin-bottom: 5px;">Q1.</h2>
+            <p id="question-text">질문 내용이 들어갑니다.</p>
+            <button id="answer-a" class="btn" onclick="selectAnswer('A')">선택지 A</button>
+            <button id="answer-b" class="btn" onclick="selectAnswer('B')">선택지 B</button>
+        </div>
+
+        <div id="result-screen" class="hidden">
+            <h1>당신의 학교생활 유형은?</h1>
+            <div id="result-mbti" class="result-mbti">ESTJ</div>
+            <p id="result-desc">유형 설명이 들어갑니다.</p>
+            
+            <div class="jobs-box">
+                <h3>💼 추천 직업 목록</h3>
+                <ul id="jobs-list" class="jobs-list">
+                    </ul>
+            </div>
+            
+            <button class="btn start-btn" style="margin-top: 25px;" onclick="restartTest()">다시 테스트하기</button>
+        </div>
+    </div>
+
+    <script>
+        // 질문 데이터 (E/I, S/N, T/F, J/P 유형별 2문제씩 총 8문제)
+        const questions = [
+            { id: 1, type: "EI", q: "등교해서 교실 문을 열었을 때 나는?", a: "친구들에게 반갑게 인사하며 말을 건다.", b: "조용히 내 자리에 가서 앉아 폰을 보거나 책을 편다." },
+            { id: 2, type: "SN", q: "수업 시간에 선생님이 '미래 도시'에 대해 상상해 보라고 하실 때?", a: "현실적으로 실현 가능한 기술이나 건물을 떠올린다.", b: "영화 속에 나올 법한 엉뚱하고 거대한 우주 도시를 상상한다." },
+            { id: 3, type: "TF", q: "친구가 시험을 망쳐서 우울해하며 속상하다고 할 때 내 반응은?", a: "몇 점 맞았어? 무슨 과목이 어려웠어? (원인 분석)", b: "아고 속상하겠다ㅠㅠ 다음엔 더 잘 볼 거야! (공감과 위로)" },
+            { id: 4, type: "JP", q: "수행평가 과제가 공지되었을 때 나는?", a: "제출일 확인하고 언제 어떻게 끝낼지 미리 계획을 세운다.", b: "일단 마감 직전까지 미루다가 전날 밤에 집중해서 끝낸다." },
+            { id: 5, type: "EI", q: "쉬는 시간 종이 울렸을 때 나의 행동은?", a: "복도로 나가거나 다른 반 친구 자리에 놀러 간다.", b: "자리에서 일어나지 않고 다음 시간 준비를 하거나 휴식을 취한다." },
+            { id: 6, type: "SN", q: "수학 문제를 풀 때 내가 더 선호하는 방식은?", a: "선생님이 알려주신 공식과 정석대로 차근차근 푼다.", b: "나만의 새로운 직관이나 다른 방법이 없는지 고민해 본다." },
+            { id: 7, type: "TF", q: "조별 과제 중 무임승차한 조원이 있을 때 나는?", a: "기여도를 확실히 따져서 선생님께 말씀드리거나 이름을 뺀다.", b: "싸우기 싫고 서운하지만 어쩔 수 없이 내가 더 안고 간다." },
+            { id: 8, type: "JP", q: "친구들과 방과 후에 떡볶이를 먹으러 가기로 했을 때?", a: "어느 가게로 갈지, 몇 시에 이동할지 미리 정해두는 게 편하다.", b: "가면서 정하거나 눈에 보이는 떡볶이집아무 데나 들어간다." }
+        ];
+
+        // MBTI 결과 데이터 및 추천 직업
+        const mbtiResults = {
+            "ISTJ": { desc: "책임감이 강하고 규칙을 잘 지키는 모범생 스타일!", jobs: ["회계사", "공무원", "데이터 분석가", "사서"] },
+            "ISFJ": { desc: "주변 사람들을 조용히 챙겨주는 사려 깊은 수호자 스타일!", jobs: ["간호사", "유치원 교사", "사회복지사", "인사담당자"] },
+            "INFJ": { desc: "생각이 깊고 친구들의 고민을 잘 들어주는 카운셀러 스타일!", jobs: ["심리상담사", "작가", "교사", "기획자"] },
+            "INTJ": { desc: "혼자서도 척척, 전략적이고 독립적인 아이디어 뱅크 스타일!", jobs: ["소프트웨어 개발자", "연구원", "전략 기획자", "금융 분석가"] },
+            "ISTP": { desc: "벼락치기의 달인, 조용하지만 효율을 극대화하는 실전파 스타일!", jobs: ["엔지니어", "파일럿", "데이터베이스 관리자", "경찰관"] },
+            "ISFP": { desc: "따뜻한 감성을 지닌, 평화를 사랑하는 예술가 스타일!", jobs: ["디자이너", "일러스트레이터", "수의사", "원예가"] },
+            "INFP": { desc: "나만의 세계가 뚜렷하고 이상을 꿈꾸는 낭만파 스타일!", jobs: ["콘텐츠 크리에이터", "시인/작가", "예술치료사", "환경운동가"] },
+            "INTP": { desc: "호기심이 많고 논리적인 분석을 좋아하는 분석가 스타일!", jobs: ["웹 프로그래머", "연구학자", "경제학자", "게임 기획자"] },
+            "ESTP": { desc: "에너지가 넘치고 학교 행사에 적극적인 분위기 메이커 스타일!", jobs: ["마케터", "스포츠 감독/트레이너", "소방관", "영업 전문가"] },
+            "ESFP": { desc: "매 순간이 즐거운, 교내 최고의 핵인싸 연예인 스타일!", jobs: ["연예인/배우", "이벤트 플래너", "승무원", "여행 가이드"] },
+            "ENFP": { desc: "긍정 에너지가 뿜뿜하며 상상력이 풍부한 아이디어 무한 제공 스타일!", jobs: ["홍보 전문가", "카피라이터", "저널리스트", "상품 기획자(MD)"] },
+            "ENTP": { desc: "토론을 좋아하고 재치 있는 말재주를 가진 브레인 스타일!", jobs: ["벤처 창업가", "변호사", "컨설턴트", "광고 기획자"] },
+            "ESTJ": { desc: "리더십이 뛰어나고 조별 과제를 완벽하게 이끄는 조장 스타일!", jobs: ["경영자/CEO", "프로젝트 매니저", "재무 이사", "교장/교감"] },
+            "ESFJ": { desc: "친구들을 조화롭게 연결해 주는 다정다감한 학급 반장 스타일!", jobs: ["호텔리어", "초등 교사", "홍보 담당자", "상담원"] },
+            "ENFJ": { desc: "모두를 이끌고 더 나은 학교를 만들고 싶어 하는 선도부장 스타일!", jobs: ["정치인/외교관", "인재 개발 전문가", "비영리단체 운영자", "뉴스 앵커"] },
+            "ENTJ": { desc: "비전이 뚜렷하고 목표를 향해 거침없이 돌진하는 총학생회장 스타일!", jobs: ["경영 컨설턴트", "투자 분석가", "정치 전략가", "벤처 캐피탈리스트"] }
+        };
+
+        let currentIdx = 0;
+        let scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
+        function startTest() {
+            document.getElementById("start-screen").classList.add("hidden");
+            document.getElementById("question-screen").classList.remove("hidden");
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentIdx >= questions.length) {
+                showResult();
+                return;
+            }
+
+            // 게이지 바 업데이트
+            const percent = (currentIdx / questions.length) * 100;
+            document.getElementById("progress").style.width = percent + "%";
+
+            // 질문 세팅
+            const currentQ = questions[currentIdx];
+            document.getElementById("question-number").innerText = `Q${currentQ.id}.`;
+            document.getElementById("question-text").innerText = currentQ.q;
+            document.getElementById("answer-a").innerText = currentQ.a;
+            document.getElementById("answer-b").innerText = currentQ.b;
+        }
+
+        function selectAnswer(choice) {
+            const currentQ = questions[currentIdx];
+            const type = currentQ.type; // 예: "EI"
+
+            if (choice === 'A') {
+                scores[type[0]]++; // E, S, T, J 점수 추가
+            } else {
+                scores[type[1]]++; // I, N, F, P 점수 추가
+            }
+
+            currentIdx++;
+            showQuestion();
+        }
+
+        function showResult() {
+            document.getElementById("question-screen").classList.add("hidden");
+            document.getElementById("result-screen").classList.remove("hidden");
+
+            // MBTI 조합 계산
+            let mbti = "";
+            mbti += (scores.E >= scores.I) ? "E" : "I";
+            mbti += (scores.S >= scores.N) ? "S" : "N";
+            mbti += (scores.T >= scores.F) ? "T" : "F";
+            mbti += (scores.J >= scores.P) ? "J" : "P";
+
+            // 결과 화면 데이터 뿌리기
+            const resultData = mbtiResults[mbti];
+            document.getElementById("result-mbti").innerText = mbti;
+            document.getElementById("result-desc").innerText = resultData.desc;
+
+            // 추천 직업 리스트 생성
+            const jobsList = document.getElementById("jobs-list");
+            jobsList.innerHTML = ""; // 기존 데이터 초기화
+            resultData.jobs.forEach(job => {
+                const li = document.createElement("li");
+                li.innerText = job;
+                jobsList.appendChild(li);
+            });
+        }
+
+        function restartTest() {
+            currentIdx = 0;
+            scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+            document.getElementById("result-screen").classList.add("hidden");
+            document.getElementById("start-screen").classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
