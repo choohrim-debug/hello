@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>학교생활로 보는 나의 MBTI 테스트</title>
+    <title>학교생활로 보는 나의 MBTI 테스트 (과학자/물리 버전)</title>
     <style>
         /* 파스텔 하늘 & 초록 톤 테마 변수 */
         :root {
-            --bg-color: #f0f7f4;
+            --bg-color: #f2f9f6;
             --card-bg: #ffffff;
-            --primary: #a8dadc;
-            --primary-hover: #457b9d;
+            --primary: #b4e1e3;
+            --primary-hover: #468faf;
             --secondary: #d8f3dc;
             --secondary-hover: #b7e4c7;
             --text-color: #2d3748;
             --accent: #1d3557;
+            --accent-light: #e8f5e9;
         }
 
         body {
@@ -32,24 +33,25 @@
 
         .container {
             background-color: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(168, 222, 220, 0.3);
+            box-shadow: 0 12px 35px rgba(180, 225, 227, 0.4);
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
             text-align: center;
             box-sizing: border-box;
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             color: var(--accent);
             margin-bottom: 20px;
             word-break: keep-all;
+            line-height: 1.4;
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             line-height: 1.6;
             margin-bottom: 30px;
             word-break: keep-all;
@@ -58,12 +60,12 @@
         .btn {
             display: block;
             width: 100%;
-            padding: 15px 20px;
+            padding: 16px 20px;
             margin-bottom: 15px;
             background-color: var(--bg-color);
             border: 2px solid var(--primary);
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 14px;
+            font-size: 0.98rem;
             font-weight: 600;
             color: var(--text-color);
             cursor: pointer;
@@ -82,7 +84,7 @@
             background-color: var(--secondary);
             border: 2px solid var(--secondary-hover);
             padding: 18px;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
         }
         .start-btn:hover {
             background-color: var(--secondary-hover);
@@ -100,57 +102,72 @@
 
         .progress {
             height: 100%;
-            background-color: var(--primary);
+            background-color: var(--primary-hover);
             width: 0%;
             transition: width 0.3s ease;
         }
 
-        /* 화면 전환용 클래스 */
         .hidden {
             display: none;
         }
 
-        /* 결과 창 스타일 */
+        /* 결과 화면 스타일링 */
         .result-mbti {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
             color: var(--primary-hover);
-            margin-bottom: 10px;
-            letter-spacing: 2px;
+            margin-bottom: 5px;
+            letter-spacing: 3px;
+        }
+
+        .info-box {
+            background-color: var(--bg-color);
+            border-left: 5px solid var(--primary-hover);
+            padding: 15px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .info-box h3 {
+            margin: 0 0 5px 0;
+            color: var(--accent);
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #4a5568;
         }
 
         .jobs-box {
-            background-color: var(--secondary);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 25px;
+            background-color: var(--accent-light);
+            border-left: 5px solid #81c784;
+            padding: 15px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 15px;
             text-align: left;
         }
 
         .jobs-box h3 {
-            margin-top: 0;
+            margin: 0 0 8px 0;
             color: var(--accent);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
 
         .jobs-list {
-            list-style: none;
-            padding: 0;
             margin: 0;
-        }
-
-        .jobs-list li {
-            position: relative;
-            padding-left: 15px;
-            margin-bottom: 8px;
+            padding-left: 20px;
+            font-size: 0.95rem;
             font-weight: 500;
         }
-
-        .jobs-list li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--primary-hover);
+        
+        .jobs-list li {
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -158,8 +175,8 @@
 
     <div class="container">
         <div id="start-screen">
-            <h1>🏫 학교생활로 알아보는<br>나의 MBTI 테스트</h1>
-            <p>교문을 나설 때부터 교실 안에서의 내 모습까지!<br>진짜 내 성격과 찰떡인 미래 직업은 무엇일까요?</p>
+            <h1>🏫 학교생활로 알아보는<br>나의 MBTI & 물리 매칭</h1>
+            <p>교문 안에서의 내 모습으로 성격을 분석하고,<br>나와 닮은 <b>물리 개념, 과학자, 추천 직업</b>까지 알아봐요!</p>
             <button class="btn start-btn" onclick="startTest()">테스트 시작하기</button>
         </div>
 
@@ -167,58 +184,158 @@
             <div class="progress-bar">
                 <div id="progress" class="progress"></div>
             </div>
-            <h2 id="question-number" style="font-size: 1rem; color: #718096; margin-bottom: 5px;">Q1.</h2>
-            <p id="question-text">질문 내용이 들어갑니다.</p>
+            <h2 id="question-number" style="font-size: 0.9rem; color: #718096; margin-bottom: 5px;">Q1.</h2>
+            <p id="question-text" style="font-weight: 700; min-height: 60px;">질문 내용</p>
             <button id="answer-a" class="btn" onclick="selectAnswer('A')">선택지 A</button>
             <button id="answer-b" class="btn" onclick="selectAnswer('B')">선택지 B</button>
         </div>
 
         <div id="result-screen" class="hidden">
-            <h1>당신의 학교생활 유형은?</h1>
+            <h2 style="font-size: 1.2rem; margin-bottom: 5px; color: #718096;">당신의 학교생활 유형은?</h2>
             <div id="result-mbti" class="result-mbti">ESTJ</div>
-            <p id="result-desc">유형 설명이 들어갑니다.</p>
+            <p id="result-desc" style="font-weight: 600; color: #4a5568; margin-bottom: 25px;">유형 설명</p>
             
+            <div class="info-box">
+                <h3>⚛️ 닮은 물리 개념</h3>
+                <p id="physics-concept">개념 설명</p>
+            </div>
+
+            <div class="info-box" style="border-left-color: #4ea8de;">
+                <h3>👨‍🔬 닮은 물리학자</h3>
+                <p id="scientist">과학자 설명</p>
+            </div>
+
             <div class="jobs-box">
-                <h3>💼 추천 직업 목록</h3>
-                <ul id="jobs-list" class="jobs-list">
-                    </ul>
+                <h3>💼 추천 미래 직업</h3>
+                <ul id="jobs-list" class="jobs-list"></ul>
             </div>
             
-            <button class="btn start-btn" style="margin-top: 25px;" onclick="restartTest()">다시 테스트하기</button>
+            <button class="btn start-btn" style="margin-top: 30px;" onclick="restartTest()">다시 테스트하기</button>
         </div>
     </div>
 
     <script>
-        // 질문 데이터 (E/I, S/N, T/F, J/P 유형별 2문제씩 총 8문제)
+        // 12문항 질문 데이터 (유형별 3문제씩)
         const questions = [
-            { id: 1, type: "EI", q: "등교해서 교실 문을 열었을 때 나는?", a: "친구들에게 반갑게 인사하며 말을 건다.", b: "조용히 내 자리에 가서 앉아 폰을 보거나 책을 편다." },
-            { id: 2, type: "SN", q: "수업 시간에 선생님이 '미래 도시'에 대해 상상해 보라고 하실 때?", a: "현실적으로 실현 가능한 기술이나 건물을 떠올린다.", b: "영화 속에 나올 법한 엉뚱하고 거대한 우주 도시를 상상한다." },
-            { id: 3, type: "TF", q: "친구가 시험을 망쳐서 우울해하며 속상하다고 할 때 내 반응은?", a: "몇 점 맞았어? 무슨 과목이 어려웠어? (원인 분석)", b: "아고 속상하겠다ㅠㅠ 다음엔 더 잘 볼 거야! (공감과 위로)" },
-            { id: 4, type: "JP", q: "수행평가 과제가 공지되었을 때 나는?", a: "제출일 확인하고 언제 어떻게 끝낼지 미리 계획을 세운다.", b: "일단 마감 직전까지 미루다가 전날 밤에 집중해서 끝낸다." },
-            { id: 5, type: "EI", q: "쉬는 시간 종이 울렸을 때 나의 행동은?", a: "복도로 나가거나 다른 반 친구 자리에 놀러 간다.", b: "자리에서 일어나지 않고 다음 시간 준비를 하거나 휴식을 취한다." },
-            { id: 6, type: "SN", q: "수학 문제를 풀 때 내가 더 선호하는 방식은?", a: "선생님이 알려주신 공식과 정석대로 차근차근 푼다.", b: "나만의 새로운 직관이나 다른 방법이 없는지 고민해 본다." },
-            { id: 7, type: "TF", q: "조별 과제 중 무임승차한 조원이 있을 때 나는?", a: "기여도를 확실히 따져서 선생님께 말씀드리거나 이름을 뺀다.", b: "싸우기 싫고 서운하지만 어쩔 수 없이 내가 더 안고 간다." },
-            { id: 8, type: "JP", q: "친구들과 방과 후에 떡볶이를 먹으러 가기로 했을 때?", a: "어느 가게로 갈지, 몇 시에 이동할지 미리 정해두는 게 편하다.", b: "가면서 정하거나 눈에 보이는 떡볶이집아무 데나 들어간다." }
+            // E vs I
+            { id: 1, type: "EI", q: "등교해서 교실 문을 열었을 때 나는?", a: "친구들에게 반갑게 대화를 건네며 교실 분위기를 띄운다.", b: "조용히 내 자리에 가서 앉아 하루 일과를 준비하거나 폰을 본다." },
+            { id: 2, type: "EI", q: "조별 과제를 할 때 의견을 조율해야 하는 상황이라면?", a: "직접 말로 의견을 내고 조원들을 이끌며 토론을 주도한다.", b: "다른 조원들의 의견을 먼저 경청한 뒤 내 생각을 조심스럽게 덧붙인다." },
+            { id: 3, type: "EI", q: "체육대회나 축제가 끝난 후 집에 갈 때 내 상태는?", a: "친구들과 신나게 놀아서 에너지가 가득 충전된 느낌이다.", b: "재밌었지만 기가 완전히 빨려서 빨리 집에서 혼자 쉬고 싶다." },
+            
+            // S vs N
+            { id: 4, type: "SN", q: "수업 시간에 선생님이 '미래 도시'에 대해 상상해 보라고 하실 때?", a: "하늘을 나는 자동차, 로봇 등 현실적으로 실현 가능성 있는 기술을 떠올린다.", b: "차원 이동이나 우주 개척처럼 영화에 나올 법한 거대하고 추상적인 세계를 상상한다." },
+            { id: 5, type: "SN", q: "새 학기 첫 수학 수업을 들을 때 내가 더 선호하는 방식은?", a: "선생님이 알려주신 공식의 사용법과 문제 풀이 순서를 정확히 익힌다.", b: "이 공식이 왜 유도되었는지 근본적인 원리와 개념적 배경을 파고든다." },
+            { id: 6, type: "SN", q: "시험 기간에 필기 노트를 정리할 때 내 스타일은?", a: "교과서와 칠판에 적힌 핵심 내용을 그대로 깔끔하게 구조화해서 적는다.", b: "내용을 요약하면서 문득 떠오른 다른 아이디어나 의문점들을 여백에 낙서하듯 적는다." },
+            
+            // T vs F
+            { id: 7, type: "TF", q: "친구가 시험을 완전히 망쳐서 우울해할 때 내 첫 마디는?", a: "어떤 과목이 밀렸어? 평균 많이 떨어졌어? (상황 파악 및 분석)", b: "아 진짜 속상하겠다ㅠㅠ 공부 진짜 열심히 했는데 속상해서 어떡해 (마음 위로)" },
+            { id: 8, type: "TF", q: "조별 과제 중 한 조원이 불성실해서 완성도가 떨어질 위기라면?", a: "역할 분담과 잘잘못을 냉정하게 따져서 선생님께 말하거나 점수를 차등 부여한다.", b: "트러블이 생기는 게 싫고 그 친구의 사정이 있을 테니 일단 내가 메우고 완수한다." },
+            { id: 9, type: "TF", q: "수행평가 결과물에 대해 선생님이 아주 직설적인 피드백을 주셨을 때?", a: "피드백의 지적 사항이 논리적으로 맞는지 생각하고 수정 계획을 세운다.", b: "선생님이 내 노력을 몰라주시는 것 같아 내심 서운하고 상처를 받는다." },
+            
+            // J vs P
+            { id: 10, type: "JP", q: "중요한 수행평가 과제가 공지되었을 때 나는?", a: "제출일까지의 남은 일수를 계산해서 일자별로 계획을 세워 시작한다.", b: "마감일이 다가올 때까지 일단 묵혀두었다가 직전에 초집중해서 끝낸다." },
+            { id: 11, type: "JP", q: "친구들과 시험이 끝난 당일 방과 후에 놀기로 했다면?", a: "노래방, 맛집, 카페 등 동선과 시간을 미리 딱 정해두어야 마음이 편하다.", b: "그때그때 기분에 따라 '일단 나가서 눈에 보이는 곳 가자!'라고 한다." },
+            { id: 12, type: "JP", q: "내 책상 위나 사물함 안의 정리 상태는?", a: "과목별 교재나 물건들이 제자리에 언제나 정돈되어 있는 편이다.", b: "필요한 걸 바로 찾기 힘들 때가 많고 자유분방하게 흐트러져 있다." }
         ];
 
-        // MBTI 결과 데이터 및 추천 직업
+        // 16가지 MBTI 결과 (물리 개념 및 과학자 포함)
         const mbtiResults = {
-            "ISTJ": { desc: "책임감이 강하고 규칙을 잘 지키는 모범생 스타일!", jobs: ["회계사", "공무원", "데이터 분석가", "사서"] },
-            "ISFJ": { desc: "주변 사람들을 조용히 챙겨주는 사려 깊은 수호자 스타일!", jobs: ["간호사", "유치원 교사", "사회복지사", "인사담당자"] },
-            "INFJ": { desc: "생각이 깊고 친구들의 고민을 잘 들어주는 카운셀러 스타일!", jobs: ["심리상담사", "작가", "교사", "기획자"] },
-            "INTJ": { desc: "혼자서도 척척, 전략적이고 독립적인 아이디어 뱅크 스타일!", jobs: ["소프트웨어 개발자", "연구원", "전략 기획자", "금융 분석가"] },
-            "ISTP": { desc: "벼락치기의 달인, 조용하지만 효율을 극대화하는 실전파 스타일!", jobs: ["엔지니어", "파일럿", "데이터베이스 관리자", "경찰관"] },
-            "ISFP": { desc: "따뜻한 감성을 지닌, 평화를 사랑하는 예술가 스타일!", jobs: ["디자이너", "일러스트레이터", "수의사", "원예가"] },
-            "INFP": { desc: "나만의 세계가 뚜렷하고 이상을 꿈꾸는 낭만파 스타일!", jobs: ["콘텐츠 크리에이터", "시인/작가", "예술치료사", "환경운동가"] },
-            "INTP": { desc: "호기심이 많고 논리적인 분석을 좋아하는 분석가 스타일!", jobs: ["웹 프로그래머", "연구학자", "경제학자", "게임 기획자"] },
-            "ESTP": { desc: "에너지가 넘치고 학교 행사에 적극적인 분위기 메이커 스타일!", jobs: ["마케터", "스포츠 감독/트레이너", "소방관", "영업 전문가"] },
-            "ESFP": { desc: "매 순간이 즐거운, 교내 최고의 핵인싸 연예인 스타일!", jobs: ["연예인/배우", "이벤트 플래너", "승무원", "여행 가이드"] },
-            "ENFP": { desc: "긍정 에너지가 뿜뿜하며 상상력이 풍부한 아이디어 무한 제공 스타일!", jobs: ["홍보 전문가", "카피라이터", "저널리스트", "상품 기획자(MD)"] },
-            "ENTP": { desc: "토론을 좋아하고 재치 있는 말재주를 가진 브레인 스타일!", jobs: ["벤처 창업가", "변호사", "컨설턴트", "광고 기획자"] },
-            "ESTJ": { desc: "리더십이 뛰어나고 조별 과제를 완벽하게 이끄는 조장 스타일!", jobs: ["경영자/CEO", "프로젝트 매니저", "재무 이사", "교장/교감"] },
-            "ESFJ": { desc: "친구들을 조화롭게 연결해 주는 다정다감한 학급 반장 스타일!", jobs: ["호텔리어", "초등 교사", "홍보 담당자", "상담원"] },
-            "ENFJ": { desc: "모두를 이끌고 더 나은 학교를 만들고 싶어 하는 선도부장 스타일!", jobs: ["정치인/외교관", "인재 개발 전문가", "비영리단체 운영자", "뉴스 앵커"] },
-            "ENTJ": { desc: "비전이 뚜렷하고 목표를 향해 거침없이 돌진하는 총학생회장 스타일!", jobs: ["경영 컨설턴트", "투자 분석가", "정치 전략가", "벤처 캐피탈리스트"] }
+            "ISTJ": { 
+                desc: "규칙을 준수하고 완벽을 기하는 교내 최고의 모범생", 
+                concept: "관성의 법칙 (뉴턴 제1법칙) - 외부의 방해가 없는 한 자신의 정연한 상태를 그대로 묵묵히 유지하려는 성질.",
+                scientist: "아이작 뉴턴 - 철저한 규칙과 계산을 통해 고전역학의 확고한 체계를 완성한 과학자.",
+                jobs: ["회계사", "공무원", "컴퓨터 보안 전문가", "사서"]
+            },
+            "ISFJ": { 
+                desc: "조용히 뒤에서 반 친구들을 챙겨주는 사려 깊은 조력자", 
+                concept: "정전기 유도 - 보이지 않는 곳에서 전하를 끌어당기듯 주변 사람들의 마음을 따뜻하게 유도하고 변화시킴.",
+                scientist: "마리 퀴리 - 묵묵하고 헌신적인 실험을 통해 인류를 위한 방사능 연구를 완성한 과학자.",
+                jobs: ["간호사", "의료 장비 기술자", "초등 교사", "사회복지사"]
+            },
+            "INFJ": { 
+                desc: "생각이 깊고 통찰력이 뛰어난 교실 안의 현자", 
+                concept: "양자 얽힘 - 멀리 떨어져 있어도 서로 완벽하게 연결되어 공명하는 신비로운 상태처럼 타인의 내면을 깊이 이해함.",
+                scientist: "닐스 보어 - 보이지 않는 원자 내부의 구조를 직관과 통찰력으로 꿰뚫어 본 양자역학의 개척자.",
+                jobs: ["심리상담사", "임상심리사", "작가", "교육 기획자"]
+            },
+            "INTJ": { 
+                desc: "혼자서도 전교 1등을 거머쥐는 냉철한 전략가", 
+                concept: "블랙홀 - 엄청난 중력으로 주변의 모든 지식을 흡수하며, 속을 쉽게 드러내지 않는 거대한 깊이감.",
+                scientist: "스티븐 호킹 - 신체적 제약 속에서도 오직 순수한 이성과 수학적 전략으로 우주의 비밀을 밝혀낸 학자.",
+                jobs: ["소프트웨어 아키텍트", "우주항공 연구원", "데이터 과학자", "투자 분석가"]
+            },
+            "ISTP": { 
+                desc: "필요할 때 엄청난 효율을 내는 효율 극대화 실전파", 
+                concept: "지레의 원리 - 최소한의 힘(노력)을 들여 가장 완벽한 작용(결과)을 만들어내는 최고의 효율성.",
+                scientist: "아르키메데스 - 도구를 다루는 직관과 실용적 실험으로 '유레카'를 외친 실천적 과학자.",
+                jobs: ["임베디드 엔지니어", "네트워크 분석가", "항공기 정비사", "경찰관"]
+            },
+            "ISFP": { 
+                desc: "말없이 스며드는 따뜻한 감성을 지닌 예술가", 
+                concept: "빛의 굴절 - 거칠지 않게 부드럽게 방향을 바꾸며 주변 환경에 스며들어 아름다운 스펙트럼을 만들어냄.",
+                scientist: "마이클 패러데이 - 정식 수학 교육은 부족했지만, 자연에 대한 순수한 관찰과 감각으로 전자기학의 기초를 다진 인물.",
+                jobs: ["UI/UX 디자이너", "식물학자", "조조감독/영상 편집자", "수의사"]
+            },
+            "INFP": { 
+                desc: "풍부한 감수성으로 나만의 이상을 꿈꾸는 낭만파", 
+                concept: "파동의 중첩 - 여러 파동이 만나 아름다운 간섭 무늬를 만들듯, 내면의 무한한 상상력이 세상과 섞여 공명함.",
+                scientist: "에르윈 슈뢰디갱 - 고양이 역설처럼 가능성과 이상이 공존하는 양자역학의 세계를 감각적인 방정식으로 표현한 과학자.",
+                jobs: ["콘텐츠 크리에이터", "예술 치료사", "시인/소설가", "NGO 활동가"]
+            },
+            "INTP": { 
+                desc: "호기심이 끊이지 않는 교실 속 생각하는 박사님", 
+                concept: "슈뢰딩거의 고양이 - 상자를 열기 전까지는 알 수 없는 세상의 수많은 가능성을 논리적으로 파헤치는 탐구열.",
+                scientist: "알베르트 아인슈타인 - 고정관념을 깨는 자유로운 사고실험으로 시공간의 개념을 바꾼 천재 물리학자.",
+                jobs: ["AI 연구원", "이론 물리학자", "게임 시스템 기획자", "변리사"]
+            },
+            "ESTP": { 
+                desc: "브레이크 없는 열정으로 무대를 뒤집어놓는 액션파", 
+                concept: "운동 에너지 - 엄청난 속도로 질주하며 주변에 강력한 영향력과 파급력을 행사하는 활기찬 에너지.",
+                scientist: "리처드 파인만 - 장난기 넘치고 직관적 행동력으로 물리학을 유쾌하게 풀어낸 행동파 천재 과학자.",
+                jobs: ["마케팅 디렉터", "스포츠 에이전트", "소방관", "스타트업 영업기획"]
+            },
+            "ESFP": { 
+                desc: "존재 자체로 교실을 밝히는 핵인싸 슈퍼스타", 
+                concept: "빛의 방출 - 에너지를 얻으면 스스로 사방으로 아름다운 빛을 내뿜어 주변을 환하게 만드는 상태.",
+                scientist: "갈릴레오 갈릴레이 - 대중 앞에 당당히 서서 자신의 관측 결과를 열정적으로 소통하고 증명했던 과학자.",
+                jobs: ["공연 기획자", "호텔/관광 매니저", "미디어 아티스트", "항공 승무원"]
+            },
+            "ENFP": { 
+                desc: "언제나 흥미진진한 아이디어를 전파하는 인간 비타민", 
+                concept: "엔트로피 증가 - 제한된 틀에 갇히지 않고 끊임없이 퍼져나가며 무한한 자유와 새로움을 추구하는 성질.",
+                scientist: "니콜라 테슬라 - 상상력 넘치는 번뜩이는 아이디어로 무선 에너지 전송 등 시대를 앞선 발명을 쏟아낸 인물.",
+                jobs: ["카피라이터", "크리에이티브 디렉터", "PR 매니저", "트렌드 분석가"]
+            },
+            "ENTP": { 
+                desc: "선생님의 의견에도 논리적 딴지를 거는 토론 대장", 
+                concept: "핵분열 - 작은 충돌 하나로 엄청난 체인 리액션(연쇄 반응)을 일으키며 기존 판도를 깨부수는 파괴력.",
+                scientist: "로버트 오펜하이머 - 수많은 천재들을 이끌고 거대한 프로젝트를 조율하며 새로운 시대를 열어젖힌 리더.",
+                jobs: ["벤처 창업가", "M&A 컨설턴트", "특허 변호사", "광고 전략가"]
+            },
+            "ESTJ": { 
+                desc: "추진력과 리더십으로 반을 지배하는 조장 스타일", 
+                concept: "작용 반작용 (뉴턴 제3법칙) - 내가 밀어붙이는 명확한 힘만큼, 확실하고 정량적인 결과와 보상을 도출해 냄.",
+                scientist: "제임스 맥스웰 - 흐트러진 전자기학의 법칙들을 단 4개의 수식으로 완벽하게 정리·통합해 통제한 과학자.",
+                jobs: ["프로젝트 매니저(PM)", "경영 컨설턴트", "재무 이사", "교무 행정가"]
+            },
+            "ESFJ": { 
+                desc: "교우관계를 평화롭게 조율하는 다정다감한 학급 반장", 
+                concept: "공명 현상 - 주변의 소리와 진동수를 일치시켜 부드럽고 거대한 화합의 에너지를 만들어내는 능력.",
+                scientist: "루이 파스퇴르 - 과학 기술을 통해 실질적으로 인간 사회를 구하고 사람들과 긴밀하게 소통했던 과학자.",
+                jobs: ["인사 관리자(HR)", "초등 교사", "고객 경험(CX) 기획자", "간호 관리사"]
+            },
+            "ENFJ": { 
+                desc: "더 나은 반을 만들기 위해 앞장서는 선도부장", 
+                concept: "전자기 유도 - 자석이 움직여 전류를 만들 듯, 자신이 앞장서 움직임으로써 주변 사람들의 열정에 불을 지핌.",
+                scientist: "칼 세이건 - 압도적인 소통 능력과 대중적 흡입력으로 인류에게 우주에 대한 열망을 심어준 과학자.",
+                jobs: ["외교관", "기업 교육 전문가", "비영리 단체 리더", "언론 앵커"]
+            },
+            "ENTJ": { 
+                desc: "전교를 아우르는 야망 가득한 총학생회장", 
+                concept: "중력 - 거대한 질량으로 주변의 모든 물질을 강력하게 끌어당겨 완벽한 궤도를 형성하고 통제하는 힘.",
+                scientist: "엔리코 페르미 - 이론과 실험 모두에서 거대한 탑을 쌓으며 목표를 향해 완벽한 통제력을 보여준 설계자.",
+                jobs: ["최고 경영자(CEO)", "투자 자문가", "정치 전략가", "경영 분석가"]
+            }
         };
 
         let currentIdx = 0;
@@ -242,7 +359,7 @@
 
             // 질문 세팅
             const currentQ = questions[currentIdx];
-            document.getElementById("question-number").innerText = `Q${currentQ.id}.`;
+            document.getElementById("question-number").innerText = `Q${currentQ.id} / ${questions.length}`;
             document.getElementById("question-text").innerText = currentQ.q;
             document.getElementById("answer-a").innerText = currentQ.a;
             document.getElementById("answer-b").innerText = currentQ.b;
@@ -253,9 +370,9 @@
             const type = currentQ.type; // 예: "EI"
 
             if (choice === 'A') {
-                scores[type[0]]++; // E, S, T, J 점수 추가
+                scores[type[0]]++;
             } else {
-                scores[type[1]]++; // I, N, F, P 점수 추가
+                scores[type[1]]++;
             }
 
             currentIdx++;
@@ -266,21 +383,24 @@
             document.getElementById("question-screen").classList.add("hidden");
             document.getElementById("result-screen").classList.remove("hidden");
 
-            // MBTI 조합 계산
+            // MBTI 결과 조합
             let mbti = "";
             mbti += (scores.E >= scores.I) ? "E" : "I";
             mbti += (scores.S >= scores.N) ? "S" : "N";
             mbti += (scores.T >= scores.F) ? "T" : "F";
             mbti += (scores.J >= scores.P) ? "J" : "P";
 
-            // 결과 화면 데이터 뿌리기
             const resultData = mbtiResults[mbti];
+            
+            // 데이터 렌더링
             document.getElementById("result-mbti").innerText = mbti;
             document.getElementById("result-desc").innerText = resultData.desc;
+            document.getElementById("physics-concept").innerText = resultData.concept;
+            document.getElementById("scientist").innerText = resultData.scientist;
 
             // 추천 직업 리스트 생성
             const jobsList = document.getElementById("jobs-list");
-            jobsList.innerHTML = ""; // 기존 데이터 초기화
+            jobsList.innerHTML = "";
             resultData.jobs.forEach(job => {
                 const li = document.createElement("li");
                 li.innerText = job;
